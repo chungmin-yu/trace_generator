@@ -1,0 +1,8 @@
+[submodule "valgrind"]
+	path = valgrind
+	url = https://github.com/dgist-datalab/valgrind_cachetrace
+	branch = master
+[submodule "kernel"]
+	path = kernel
+	url = https://github.com/dgist-datalab/cxl-kernel
+	branch = cxl-minjae

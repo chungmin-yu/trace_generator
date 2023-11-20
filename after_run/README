@@ -1,0 +1,22 @@
+make_physical_trace.py
+	usage: python3 make_physical_trace.py [trace.mix]
+	output: trace.phyout
+
+	the [.mix] trace file has two information. One is a virtual address trace, and the other is Virtual-Phyiscal mappings.
+	This code combines two information and generates a physical address trace. 
+
+	The first line of [.pout] file:
+		ok_cnt  none_cnt  ok/total
+
+make_physical_trace_ts.py
+	usage: python3 make_physical_trace_ts.py [trace.mix]
+	output: trace.phyout
+
+	This script is the same as the one above, but is used when the [.mix] trace file contains timestamps.
+	Only line 160 is different.
+
+mix_vpmap.py
+	usage: python3 mix_vpmap.py [trace.vout]
+	output: trace.mix
+
+	This script makes [.mix] trace file by combining [trace.vout] and [trace.vpmap]
