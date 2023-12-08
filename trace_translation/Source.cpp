@@ -5,6 +5,7 @@
 #include <set>
 #include <list>
 #include <map>
+#include <stdlib.h>
 
 using namespace std; 
 
@@ -48,28 +49,37 @@ int main() {
 		return 0;
 	}
 	if (filename.find(".pout") != string::npos) {
-		outname = filename.replace(filename.find(".pout"), 6, ".trace");
+		// sorted timestamp
+		string exec_name = "sort -t\" \" -k3 -n " + filename + " > tt.out";
+		cout<< exec_name << endl;
+		system(exec_name.c_str());
+		outname = filename.replace(filename.find(".pout"), 6, "_p.trace");
 		va = 0;
 	}
 	if (filename.find(".vout") != string::npos) {
-		outname = filename.replace(filename.find(".vout"), 6, ".trace");
+		outname = filename.replace(filename.find(".vout"), 6, "_v.trace");
 		va = 1;
+	}
+
+	inputfile.close();
+	ifstream sortedfile{ "tt.out" };
+	if (!sortedfile.is_open()) {
+		cout << "File does not exist" << endl;
+		return 0;
 	}
 
 
 	ofstream outputfile{ outname };
 
-	while (!inputfile.eof()) {
+	while (!sortedfile.eof()) {
 		string line{ "" };
-		getline(inputfile, line);
+		getline(sortedfile, line);
 
 		if ( va && (line.size() < 3 || !(line[1] == 'R' || line[1] == 'W'))) { 
 			continue; 
 		}
 		if (line == "") continue;
-		count++;
-		
-		
+				
 		if (va) {
 			line.erase(line.begin());
 			line.erase(line.begin() + line.size() - 1);
@@ -87,7 +97,13 @@ int main() {
 		timestamp *= 1000000;
 
 		uint64_t time{ static_cast<uint64_t> (timestamp) };
-		if (count == 1) global_start_time = time;
+		if (count == 0) {
+			global_start_time = time;
+		} else if ((time - global_start_time) == prevtime) {
+			continue;
+		}
+
+		count++;
 
 		int rw{ (rws == "R") ? 1 : 0 };
 		string printinfo;
@@ -145,6 +161,8 @@ int main() {
 	// 	//	break;
 	// 	//}
 	// }
+
+	system("rm tt.out");
 
 	std::cout << "Application End Time(ns): " << prevtime*scaler << endl;
 	std::cout << "Memory Footprint: " << mfootprint.size() * 4096 / 1024 / 1024 << "MB" << endl;
