@@ -152,7 +152,8 @@ if scatter:
     plt.rcParams["figure.figsize"] = (8,5)
     plt.rc('legend', fontsize=18)
 
-    fig, ax1 = plt.subplots(dpi=600)
+    # fig, ax1 = plt.subplots(dpi=600)
+    fig, ax1 = plt.subplots()
     #plt.xticks(x, label, fontsize=20)
 
     x_ = x[:]
@@ -171,9 +172,11 @@ if scatter:
     ax1.set_ylim(0, group_num)
     id_str = "-scatter"+str(args.scatter)+"-g"+str(group_num)+"-"+str(group_size)
     fig_name = "./plot" + id_str + "_" + input_file_name[:-5] + "_va.png"
-    fig.savefig(fig_name, bbox_inches='tight', format='png')
-    log_file_name = input_file_name[:-5] + ".slog"
-    save_log(log_file_name, min, max, lower_bound, upper_bound, group_num, data=scatter)
+    # fig.savefig(fig_name, bbox_inches='tight', format='png')
+    plt.tight_layout()
+    plt.show()
+    # log_file_name = input_file_name[:-5] + ".slog"
+    # save_log(log_file_name, min, max, lower_bound, upper_bound, group_num, data=scatter)
 
 
 
@@ -238,7 +241,8 @@ else:
     plt.rcParams["figure.figsize"] = (8,5)
     plt.rc('legend', fontsize=18)
 
-    fig, ax1 = plt.subplots(dpi=600)
+    # fig, ax1 = plt.subplots(dpi=600)
+    fig, ax1 = plt.subplots()
 
     x_ = x[:]
     hist_ = hist[:]
@@ -260,11 +264,13 @@ else:
     ax1.tick_params(axis='y', direction='in')
 
     fig_name = "./hist" + id_str + "_" + input_file_name[:-5] + "_va.png"
-    fig.savefig(fig_name, bbox_inches='tight', format='png')
+    # fig.savefig(fig_name, bbox_inches='tight', format='png')
+    plt.tight_layout()
+    plt.show()
 
     # Save min/max in a log file for calculating the address pool size
-    if cdf == 1:
-        log_file_name = input_file_name[:-5] + ".clog"
-    else:
-        log_file_name = input_file_name[:-5] + ".blog"
-    save_log(log_file_name, min, max, lower_bound, upper_bound, group_num, data=hist)
+    # if cdf == 1:
+    #     log_file_name = input_file_name[:-5] + ".clog"
+    # else:
+    #     log_file_name = input_file_name[:-5] + ".blog"
+    # save_log(log_file_name, min, max, lower_bound, upper_bound, group_num, data=hist)
