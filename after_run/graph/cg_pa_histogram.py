@@ -183,7 +183,8 @@ if scatter:
     plt.rcParams["figure.figsize"] = (figsize_x, figsize_y)
     plt.rc('legend', fontsize=18)
 
-    fig, ax1 = plt.subplots(dpi=600)
+    # fig, ax1 = plt.subplots(dpi=600)
+    fig, ax1 = plt.subplots()
 
     #x_ = x[10000:15000]
     #hist_ = hist[10000:15000]
@@ -211,7 +212,9 @@ if scatter:
         fig_name = "./plot" + id_str + "_" + input_file_name[:-5] + "_pa.png"
     else:
         fig_name = "./manplot" + id_str + "_" + input_file_name[:-5] + "_pa.png"
-    fig.savefig(fig_name, bbox_inches='tight', format='png')
+    #fig.savefig(fig_name, bbox_inches='tight', format='png')
+    plt.tight_layout()
+    plt.show()
 
 else:
     scope = max-min
@@ -300,7 +303,8 @@ else:
     plt.rcParams["figure.figsize"] = (figsize_x, figsize_y)
     plt.rc('legend', fontsize=18)
 
-    fig, ax1 = plt.subplots(dpi=600)
+    # fig, ax1 = plt.subplots(dpi=600)
+    fig, ax1 = plt.subplots()
 
     #x_ = x[10000:15000]
     #hist_ = hist[10000:15000]
@@ -338,4 +342,6 @@ else:
         fig_name = "./hist" + id_str + "_" + input_file_name[:-5] + "_pa.png"
     else:
         fig_name = "./manhist" + id_str + "_" + input_file_name[:-5] + "_pa.png"
-    fig.savefig(fig_name, bbox_inches='tight', format='png')
+    # fig.savefig(fig_name, bbox_inches='tight', format='png')
+    plt.tight_layout()
+    plt.show()
